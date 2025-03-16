@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mini App</title>
+    <style>
+        /* Общие стили */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0; /* Серый фон */
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+        }
+
+        /* Шапка */
+        header {
+            background-color: #ffffff;
+            padding: 10px;
+            display: flex;
+            justify-content: flex-end;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Кнопк�� "Подключить кошелек" */
+        #connect-wallet {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        #connect-wallet:hover {
+            background-color: #0056b3;
+        }
+
+        /* Основное содержимое */
+        main {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            text-align: center;
+        }
+
+        /* Меню снизу */
+        footer {
+            background-color: #ffffff;
+            padding: 10px;
+            display: flex;
+            justify-content: space-around;
+            box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Кнопки меню */
+        .menu-button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            flex: 1;
+            margin: 0 5px;
+        }
+
+        .menu-button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <!-- Шапка с кнопкой "Подключить кошелек" -->
+    <header>
+        <button id="connect-wallet">Подключить кошелек</button>
+    </header>
+
+    <!-- Основное содержимое -->
+    <main>
+        <h1>Добро пожаловать в Mini App!</h1>
+    </main>
+
+    <!-- Меню снизу -->
+    <footer>
+        <button class="menu-button">Кнопка 1</button>
+        <button class="menu-button">Кнопка 2</button>
+        <button class="menu-button">Кнопка 3</button>
+    </footer>
+
+    <script>
+        // Обработчик кнопки "Подключить кошелек"
+        document.getElementById('connect-wallet').addEventListener('click', async () => {
+            try {
+                // Проверяем, доступен ли TON API
+                if (window.ton) {
+                    // Запрашиваем доступ к кошельку
+                    const accounts = await window.ton.send('ton_requestAccounts');
+                    alert(`Кошелек подключен: ${accounts[0]}`);
+                } else {
+                    alert('TON Wallet не найден. Установите расширение TON Wallet.');
+                }
+            } catch (error) {
+                alert('Ошибка при подключении кошелька: ' + error.message);
+            }
+        });
+    </script>
+</body>
+</html>
